@@ -5,24 +5,25 @@
 
 # app/controller/blog_posts_controller.rb
 
-# 1)
+# 1) rails g controller
 class BlogPostsController < ApplicationController
   def index
     # 2)
     @posts = BlogPost.all
   end
+# instance variable that contains all objects in BlogPost
 
   def show
-    # 3)
+    # 3)method that displays one id
     @post = BlogPost.find(params[:id])
   end
 
-  # 4)
+  # 4)method used to post a new obj
   def new
   end
 
   def create
-    # 5)
+    # 5)method used to post a new obj
     @post = BlogPost.create(blog_post_params)
     if @post.valid?
       redirect_to @post
@@ -36,7 +37,7 @@ class BlogPostsController < ApplicationController
     if @post.delete
       redirect_to blog_posts_path
     else
-      # 6)
+      # 6)deletes post and redirects it to post
       redirect_to blog_post_path(@post)
     end
   end
@@ -44,7 +45,7 @@ class BlogPostsController < ApplicationController
   # 7)
   private
   def blog_post_params
-    # 8)
+    # 8)must be added to or will receive error
     params.require(:blog_post).permit(:title, :content)
   end
 
@@ -53,8 +54,8 @@ end
 
 # app/models/blog_post.rb
 
-# 9)
+# 9)a model
 class BlogPost < ApplicationRecord
-  # 10)
+  # 10)relation ship so a blogpost can have many comments
   has_many :comments
 end
